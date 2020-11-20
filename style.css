@@ -4,7 +4,6 @@
 
 body {
     margin: 0;
-    font-family: poppins;
     font-weight: 500;
 }
 
@@ -36,6 +35,7 @@ main {
 }
 
 .smallSquare {
+    font-family: poppins;
     background-color: white;
     cursor: pointer;
     padding-top: 3px;
