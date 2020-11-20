@@ -17,7 +17,8 @@ main {
 .grid {
     display: grid;
     grid-template-columns: repeat(3, 100px);
-    gap: 2px;
+    gap: 3px;
+    background-color: #555;
 }
 
 .bigSquare {
@@ -26,21 +27,26 @@ main {
     width: 100px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
-    border: 2px solid #999;
+    gap: 1px;
+    /* padding: 1px; */
+
+    /* border: 2px solid #999; */
 
 
 }
 
 .smallSquare {
-    background-color: #ddd;
+    background-color: white;
     cursor: pointer;
     padding-top: 3px;
     justify-content: center;
     text-align: center;
     align-items: center;
+    width: 100%;
+    outline: none;
+    border: none;
 }
 
 .smallSquare:hover {
-    background-color: #ccc;
+    background-color: #eee;
 }
