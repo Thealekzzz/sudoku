@@ -10,7 +10,7 @@ body {
 main {
     display: flex;
     justify-content: center;
-    padding-top: 100px;
+    padding-top: 10vh;
 }
 
 .grid {
@@ -49,4 +49,8 @@ main {
 
 .smallSquare:hover {
     background-color: #eee;
+}
+
+.blocked {
+    background-color: #f8f8f8;
 }

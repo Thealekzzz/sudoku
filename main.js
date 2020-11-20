@@ -4,6 +4,11 @@ let bigSquare
 let smallSquare
 let matrix = []
 let digits = [1,2,3,4,5,6,7,8,9]
+let level = 25
+
+// window.onbeforeunload = function() {
+// 	return true;
+// };
 
 
 for(let i = 0; i < 9; i++) {
@@ -95,13 +100,14 @@ function randomFill() {
         
     // }
     
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < level; i++) {
         let tRow = Math.floor(Math.random() * 9)
         let tCol = Math.floor(Math.random() * 9)
         let temp = matrix[tRow][tCol]
         let arr = possibleN(temp)
 
         temp.setAttribute('disabled', true)
+        temp.classList.add('blocked')
 
         temp.value = arr[Math.floor(Math.random() * arr.length)]
         // console.log('lgjhl');
