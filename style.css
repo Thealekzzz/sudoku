@@ -1,0 +1,46 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: poppins;
+    font-weight: 500;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    gap: 2px;
+}
+
+.bigSquare {
+    /* background-color: tomato; */
+    height: 100px;
+    width: 100px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    border: 2px solid #999;
+
+
+}
+
+.smallSquare {
+    background-color: #ddd;
+    cursor: pointer;
+    padding-top: 3px;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.smallSquare:hover {
+    background-color: #ccc;
+}
