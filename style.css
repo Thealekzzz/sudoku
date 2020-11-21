@@ -112,7 +112,7 @@ button:hover {
 }
 
 .blocked {
-    background-color: #f8f8f8;
+    background-color: #f2f2f2;
 }
 
 .explanation {
@@ -139,7 +139,7 @@ button:hover {
     padding: 10px 15px;
     margin-right: 5px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all;
 }
 
 .active {

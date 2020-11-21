@@ -57,7 +57,7 @@ function fillMatr(fieldNumber) {
             item.setAttribute('row', i)
             item.setAttribute('col', k)
             item.setAttribute('opened', true)
-            item.setAttribute('disabled', true)
+            item.setAttribute('readonly', true)
 
             item.classList.add('blocked')
             matrix[i].push(item)
@@ -348,11 +348,11 @@ function deleteElements(fieldNumber) {
         let tempItem = matrices[fieldNumber][elemRowIndex][elemColIndex]
 
 
-        console.log('possibleN(tempItem, fieldNumber): ', possibleN(tempItem, fieldNumber));
+        // console.log('possibleN(tempItem, fieldNumber): ', possibleN(tempItem, fieldNumber));
 
         if (tempItem.getAttribute('opened') == 'true' && possibleN(tempItem, fieldNumber).length < 5) {
             tempItem.setAttribute('opened', false)
-            tempItem.removeAttribute('disabled')
+            tempItem.removeAttribute('readonly')
 
             tempItem.classList.remove('blocked')
 
@@ -360,7 +360,7 @@ function deleteElements(fieldNumber) {
             closed++
         }
     }
-    console.log(closed);
+    // console.log(closed);
 }
 
 function countOpened(fieldNumber) {
@@ -373,12 +373,31 @@ function countOpened(fieldNumber) {
     }
 }
 
+function findSameDigit(fieldNumber, item) {
+    if (item.value == '') return []
+    let matrix = matrices[fieldNumber]
+    let tempVector = []
+    for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+            if (item.value == matrix[i][j].value) tempVector.push(matrix[i][j])
+        }
+    }
+
+    return tempVector
+}
+
+
+
 // Необходимо сделать скрипт который убирал бы 
 // символы, которые уже есть из списка возможных - Не работает, но
 // реализовал скрипт,который
 // генерирует новое поле каждый раз, когда встречается клетка,
 // в которую нельзя поставить ни одну цифру ( может делать 
 // очень много повторений, например 500 )
+
+let sameDigits
+
+
 
 generateButtons.forEach((button, index) => {
     fieldCreation(index)
@@ -405,12 +424,31 @@ generateButtons.forEach((button, index) => {
                 matrices[0] = fillMatr(0)
                 logicalFill(0)
                 deleteElements(0)
+
+                smalls.forEach((elem, index) => {
+                    elem.forEach(item => {
+                        item.addEventListener('click', () => {
+                            if (sameDigits != undefined && sameDigits != []) {
+                                sameDigits.forEach(item => {
+                                    if (item.classList.contains('blocked')) item.style.backgroundColor = '#f2f2f2'
+                                    else item.style.backgroundColor = 'white'
+                                })
+                            }
+                            sameDigits = findSameDigit(index, item)
+                            sameDigits.forEach(item => item.style.backgroundColor = '#EE9999')
+                        })
+                    })
+                }) 
             })
             
             break
         }
+
+
     }
 })
+
+
 
 
 levels.forEach((item, index) => {
@@ -433,7 +471,7 @@ levels.forEach((item, index) => {
             }
 
             case 2: {
-                level = 20
+                level = 22
                 break
             }
         }
