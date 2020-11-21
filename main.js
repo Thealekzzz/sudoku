@@ -1,11 +1,13 @@
 let grid = document.querySelectorAll('.grid')
 let generateButtons = document.querySelectorAll('button')
 let countInfo = document.querySelector('.countInfo span')
+let levels = document.querySelectorAll('.level div')
+
 
 let bigSquare
 let smallSquare
 let matrices = [[], []]
-let level =25
+let level = 25
 let count
 
 let smalls = [[], []]
@@ -329,21 +331,26 @@ function randomNs(a = 2) {
 
 function logicalFill(fieldNumber) {
     makeBasicGrid(fieldNumber)
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 50; i++) {
         mix(fieldNumber)
         
     }
 }
 
 function deleteElements(fieldNumber) {
+    
     let closed = 0
     let target = 81 - level
+    // console.log(target);
     while (closed < target) {
         let elemRowIndex = randomN(8)
         let elemColIndex = randomN(8)
         let tempItem = matrices[fieldNumber][elemRowIndex][elemColIndex]
 
-        if (tempItem.getAttribute('opened')) {
+
+        console.log('possibleN(tempItem, fieldNumber): ', possibleN(tempItem, fieldNumber));
+
+        if (tempItem.getAttribute('opened') == 'true' && possibleN(tempItem, fieldNumber).length < 5) {
             tempItem.setAttribute('opened', false)
             tempItem.removeAttribute('disabled')
 
@@ -352,6 +359,17 @@ function deleteElements(fieldNumber) {
             tempItem.value = ''
             closed++
         }
+    }
+    console.log(closed);
+}
+
+function countOpened(fieldNumber) {
+    for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+            if (matrices[fieldNumber][i][j].getAttribute('opened') == 'true') console.log('открытый');
+            
+        }
+        
     }
 }
 
@@ -365,10 +383,12 @@ function deleteElements(fieldNumber) {
 generateButtons.forEach((button, index) => {
     fieldCreation(index)
     
+    
     switch (index) {
         case 1: {
             button.addEventListener('click', () => {
-                console.log("Первая кнопка");
+                // console.log("Первая кнопка");
+                
                 fieldCreation(1)
                 matrices[1] = fillMatr(1)
                 count = 1
@@ -380,7 +400,7 @@ generateButtons.forEach((button, index) => {
         }
         case 0: {
             button.addEventListener('click', () => {
-                console.log("Вторая кнопка");
+                // console.log("Вторая кнопка");
                 fieldCreation(0)
                 matrices[0] = fillMatr(0)
                 logicalFill(0)
@@ -392,3 +412,33 @@ generateButtons.forEach((button, index) => {
     }
 })
 
+
+levels.forEach((item, index) => {
+    item.addEventListener('click', () => {
+        levels.forEach((button) => {
+            button.style.backgroundColor = '#ccc'
+            button.style.color = 'black'
+        })
+        item.style.backgroundColor = 'orangered'
+        item.style.color = 'white'
+        switch (index) {
+            case 0: {
+                level = 30
+                break
+            }
+
+            case 1: {
+                level = 25
+                break
+            }
+
+            case 2: {
+                level = 20
+                break
+            }
+        }
+    })
+})
+
+levels[1].style.backgroundColor = 'orangered'
+levels[1].style.color = 'white'
