@@ -17,7 +17,7 @@ main {
 
 section {
     display: grid;
-    grid-template-columns: 3fr 4fr;
+    grid-template-columns: 2fr 3fr;
     justify-items: right;
 }
 
@@ -25,7 +25,7 @@ section:first-of-type {
     margin-bottom: 100px;
 }
 
-section div {
+section div:nth-of-type(2) p {
     margin-right: 10vw;
 }
 
@@ -45,11 +45,26 @@ button {
     font-family: Raleway;
     font-weight: 700;
     cursor: pointer;
+    outline: none;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: rgb(35, 112, 68);
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.countInfo span{
+    font-size: 12px;
+    margin-left: 10px;
 }
 
 .grid {
     display: grid;
-    margin: auto 5vw auto auto;
+    margin: auto 2vw auto auto;
     grid-template-columns: repeat(3, 100px);
     gap: 3px;
     background-color: #555;
@@ -98,6 +113,10 @@ button {
 }
 
 @media (max-width: 800px) {
+    section div:nth-of-type(2) p {
+        margin-right: 0;
+    }
+
     .explanation {
         /* display: none; */
         text-align: center;
