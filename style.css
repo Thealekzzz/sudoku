@@ -18,10 +18,7 @@ main {
 section {
     display: grid;
     grid-template-columns: 2fr 3fr;
-    justify-items: right;
-}
-
-section:first-of-type {
+    justify-items: left;
     margin-bottom: 100px;
 }
 
@@ -94,7 +91,7 @@ button:hover {
 
 .smallSquare {
     font-family: Raleway;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 16px;
     background-color: white;
     cursor: pointer;
@@ -113,28 +110,81 @@ button:hover {
 
 .blocked {
     background-color: #f2f2f2;
+    font-weight: 700;
 }
 
 .explanation {
     padding: 20px;
 }
 
-.levelWrapper {
+.digitsCount {
     display: flex;
     flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.digitWrapper {
+    font-family: sans-serif;
+    display: flex;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    height: 20px;
+    width: 40px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+
+}
+
+.digitWrapper span {
+    font-weight: 700;
+    /* padding-bottom: 2px; */
+    text-align: center;
+    padding-top: 2px;
+    padding-left: 4px;
+}
+
+.digit {
+    font-weight: 700;
+    text-align: center;
+    padding-right: 1px;
+    padding-top: 2px;
+    height: 20px;
+    width: 20px;
+    background-color: #666;
+    color: white;
+    border-radius: 50%;
+}
+
+.levelWrapper {
+
+    position: fixed;
+    bottom: 2vh;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    color: black;
+    font-weight: 700;
+    max-width: 500px;
+    padding: 30px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
 }
 
 .level {
     display: flex;
     flex-wrap: nowrap;
-    margin-bottom: 5px;
+    margin-left: 20px;
+    margin-top: 5px;
 
 }
 
 .level div {
     background-color: #ccc;
-    color: black;
-    font-weight: 700;
     font-size: 14px;
     padding: 10px 15px;
     margin-right: 5px;
@@ -146,6 +196,8 @@ button:hover {
     background-color: orangered;
     color: white;
 }
+
+
 
 @media (max-width: 800px) {
     section div:nth-of-type(2) p {
@@ -182,6 +234,20 @@ button:hover {
     }
 
     .levelWrapper {
+        justify-content: center;
+    }
+
+    .levelWrapper {
+        max-width: 400px;
+        padding: 20px;
+        
+    }
+
+    .level {
+        margin-left: 0;
+    }
+
+    .digitsCount {
         justify-content: center;
     }
 }

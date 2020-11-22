@@ -2,6 +2,7 @@ let grid = document.querySelectorAll('.grid')
 let generateButtons = document.querySelectorAll('button')
 let countInfo = document.querySelector('.countInfo span')
 let levels = document.querySelectorAll('.level div')
+let digitsCountItems = document.querySelectorAll('.digitsCount')
 
 
 let bigSquare
@@ -9,6 +10,9 @@ let smallSquare
 let matrices = [[], []]
 let level = 25
 let count
+let digitsCount = []
+let digitsBG = []
+let digits = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 let smalls = [[], []]
 
@@ -48,7 +52,8 @@ function fieldCreation(fieldNumber) {
 firstN = [0, 3, 6, 27, 30, 33, 54, 57, 60]
 fff = [0, 1, 2, 9, 10, 11, 18, 19, 20]
 
-function fillMatr(fieldNumber) {
+function fillMatr(fieldNumber, makeBlocked = true) {
+    console.log(makeBlocked);
     let matrix = matrices[fieldNumber]
     for (let i = 0; i < 9; i++) {
         matrix.push([])
@@ -57,9 +62,13 @@ function fillMatr(fieldNumber) {
             item.setAttribute('row', i)
             item.setAttribute('col', k)
             item.setAttribute('opened', true)
-            item.setAttribute('readonly', true)
 
-            item.classList.add('blocked')
+            if (makeBlocked) {
+                item.setAttribute('readonly', true)
+                item.classList.add('blocked')
+
+            }
+
             matrix[i].push(item)
     
         }
@@ -281,7 +290,7 @@ function transp(fiendNumber) {
     }
 }
 
-function mix(fieldNumber) {
+function logicalMix(fieldNumber) {
     let func = randomN(4)
     let cubes = randomNs()
     let vectors = randomNs()
@@ -332,9 +341,36 @@ function randomNs(a = 2) {
 function logicalFill(fieldNumber) {
     makeBasicGrid(fieldNumber)
     for (let i = 0; i < 50; i++) {
-        mix(fieldNumber)
+        logicalMix(fieldNumber)
         
     }
+}
+
+function upgradedMix(fieldNumber) {
+    let tempFrom = Math.round(Math.random() * 8 + 1)
+    let tempTo = Math.round(Math.random() * 8 + 1)
+    // while ((tempFrom - tempTo) % 3 == 0) {
+    //     tempTo = Math.round(Math.random() * 8 + 1)
+    // }
+    let vectorFrom = findSameDigitByDigit(fieldNumber, tempFrom)
+    let vectorTo = findSameDigitByDigit(fieldNumber, tempTo)
+    for (let i = 0; i < 9; i++) {
+        vectorFrom[i].value = tempTo
+        vectorTo[i].value = tempFrom
+    }
+}
+
+function upgradedFill(fieldNumber) {
+    makeBasicGrid(fieldNumber)
+    for (let i = 0; i < 15; i++) {
+        upgradedMix(fieldNumber)
+    }
+
+    for (let i = 0; i < 10; i++) {
+        logicalMix(fieldNumber)
+        
+    }
+
 }
 
 function deleteElements(fieldNumber) {
@@ -350,7 +386,7 @@ function deleteElements(fieldNumber) {
 
         // console.log('possibleN(tempItem, fieldNumber): ', possibleN(tempItem, fieldNumber));
 
-        if (tempItem.getAttribute('opened') == 'true' && possibleN(tempItem, fieldNumber).length < 5) {
+        if (tempItem.getAttribute('opened') == 'true' && possibleN(tempItem, fieldNumber).length < 4) {
             tempItem.setAttribute('opened', false)
             tempItem.removeAttribute('readonly')
 
@@ -373,7 +409,19 @@ function countOpened(fieldNumber) {
     }
 }
 
-function findSameDigit(fieldNumber, item) {
+function findSameDigitByDigit(fieldNumber, digit) {
+    let matrix = matrices[fieldNumber]
+    let tempVector = []
+    for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+            if (digit == matrix[i][j].value) tempVector.push(matrix[i][j])
+        }
+    }
+
+    return tempVector
+}
+
+function findSameDigitByItem(fieldNumber, item) {
     if (item.value == '') return []
     let matrix = matrices[fieldNumber]
     let tempVector = []
@@ -386,7 +434,65 @@ function findSameDigit(fieldNumber, item) {
     return tempVector
 }
 
+function addHighlights(fieldNumber) {
+    smalls[fieldNumber].forEach(item => {
+        item.addEventListener('click', () => {
+            if (sameDigits != undefined && sameDigits != []) {
+                sameDigits.forEach(item => {
+                    if (item.classList.contains('blocked')) item.style.backgroundColor = '#f2f2f2'
+                    else item.style.backgroundColor = 'white'
+                })
+            }
+            sameDigits = findSameDigitByItem(fieldNumber, item)
+            sameDigits.forEach(item => item.style.backgroundColor = '#EE9999')
+        })
 
+        
+
+        item.addEventListener('input', () => {
+            let tempValue = item.value
+            if ((tempValue > 9 || tempValue < 1) && tempValue != '') {
+                item.value = tempValue[tempValue.length - 1]
+            }
+
+            if (sameDigits != undefined && sameDigits != []) {
+                sameDigits.forEach(item => {
+                    if (item.classList.contains('blocked')) item.style.backgroundColor = '#f2f2f2'
+                    else item.style.backgroundColor = 'white'
+                })
+            }
+            sameDigits = findSameDigitByItem(fieldNumber, item)
+            sameDigits.forEach(item => item.style.backgroundColor = '#EE9999')
+            updateDigitsCount(fieldNumber)
+        })
+    })
+}
+
+function updateDigitsCount(fieldNumber) {
+    let tempCountOfFilled = 0
+    digitsCount[fieldNumber].forEach((item, index) => {
+        let tempCount = findSameDigitByDigit(fieldNumber, index + 1).length
+        item.textContent = tempCount
+        if (tempCount == 9) {
+            tempCountOfFilled++
+            digitsBG[fieldNumber][index].style.backgroundColor = 'seagreen'
+        } else {
+            digitsBG[fieldNumber][index].style.backgroundColor = '#666'
+        }
+    })
+    if (tempCountOfFilled == 9) {
+        for (let i = 0; i < 9; i++) {
+            for (let j = 0; j < 9; j++) {
+                matrices[fieldNumber][i][j].style.backgroundColor = '#aaeeaa'
+            }
+        }
+    }
+}
+
+function hasRepeated(vector) {
+    let setFromVector = new Set(vector)
+    return !(setFromVector.size == vector.length)
+}
 
 // Необходимо сделать скрипт который убирал бы 
 // символы, которые уже есть из списка возможных - Не работает, но
@@ -397,57 +503,69 @@ function findSameDigit(fieldNumber, item) {
 
 let sameDigits
 
+function addEventL(button, func) {
+    button.addEventListener('click', () => {
+        func()
+    })
+}
+
 
 
 generateButtons.forEach((button, index) => {
     fieldCreation(index)
+
+    addEventL(button, () => {
+        
+    })
     
     
     switch (index) {
-        case 1: {
-            button.addEventListener('click', () => {
-                // console.log("Первая кнопка");
-                
-                fieldCreation(1)
-                matrices[1] = fillMatr(1)
-                count = 1
-                randomFill(1)
-                deleteElements(1)
-            })
-
-            break
-        }
         case 0: {
-            button.addEventListener('click', () => {
-                // console.log("Вторая кнопка");
-                fieldCreation(0)
-                matrices[0] = fillMatr(0)
-                logicalFill(0)
-                deleteElements(0)
-
-                smalls.forEach((elem, index) => {
-                    elem.forEach(item => {
-                        item.addEventListener('click', () => {
-                            if (sameDigits != undefined && sameDigits != []) {
-                                sameDigits.forEach(item => {
-                                    if (item.classList.contains('blocked')) item.style.backgroundColor = '#f2f2f2'
-                                    else item.style.backgroundColor = 'white'
-                                })
-                            }
-                            sameDigits = findSameDigit(index, item)
-                            sameDigits.forEach(item => item.style.backgroundColor = '#EE9999')
-                        })
-                    })
-                }) 
+            addEventL(button, () => {
+                fieldCreation(index)
+                matrices[index] = fillMatr(index)
+                addHighlights(index)
+                upgradedFill(index)
+                deleteElements(index)
+                updateDigitsCount(index)
+                
             })
             
             break
         }
 
+        case 1: {
+            addEventL(button, () => {
+                fieldCreation(index)
+                matrices[index] = fillMatr(index)
+                addHighlights(index)
+                logicalFill(index)
+                deleteElements(index)
+                updateDigitsCount(index)
+                
+            })
+                        
+            break
+        }
+
+        case 2: {
+            addEventL(button, () => {
+                fieldCreation(index)
+                matrices[index] = fillMatr(index, false)
+                addHighlights(index)
+                upgradedFill(index)
+
+            })
+        }
 
     }
 })
 
+
+digitsCountItems.forEach(item => {
+    digitsCount.push(item.querySelectorAll('.digitWrapper span'))
+    digitsBG.push(item.querySelectorAll('.digit'))
+})
 
 
 
@@ -461,22 +579,23 @@ levels.forEach((item, index) => {
         item.style.color = 'white'
         switch (index) {
             case 0: {
-                level = 30
+                level = 40
                 break
             }
 
             case 1: {
-                level = 25
+                level = 35
                 break
             }
 
             case 2: {
-                level = 22
+                level = 28
                 break
             }
         }
     })
 })
 
+// Делаем подсветку изначального уровня
 levels[1].style.backgroundColor = 'orangered'
 levels[1].style.color = 'white'
