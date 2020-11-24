@@ -113,6 +113,10 @@ button:hover {
     font-weight: 700;
 }
 
+.tempBG {
+    background-color: #666;
+}
+
 .explanation {
     padding: 20px;
 }

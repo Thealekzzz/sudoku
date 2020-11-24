@@ -84,7 +84,7 @@ function generateBombsAndDigits() {
         tempSquare = squares[tempRow][tempCol]
         tempSquare.setAttribute('state', 'B')
         // tempSquare.classList.add('bomb')
-        // tempSquare.textContent = 'B'
+        tempSquare.textContent = 'B'
     
         
     }
@@ -97,10 +97,10 @@ function generateBombsAndDigits() {
             if (tempDigit != 'B') {
                 tempDigit = countSymbol(findNeighbours(i, j), 'B')
                 tempSquare.setAttribute('state', tempDigit)
-                // if (tempDigit != 0) {
-                //     tempSquare.textContent = tempDigit
+                if (tempDigit != 0) {
+                    tempSquare.textContent = tempDigit
 
-                // }
+                }
     
             }
     
@@ -215,7 +215,21 @@ function actionsOnEnotherRightClick(event) {
 }
 
 function findAllZeroSquaresAndNeighbours(item) {
+    let resVec = []
 
+    let tempVector = findNeighbours(+item.getAttribute('row'), +item.getAttribute('col'), squares)
+    tempVector.forEach(square => {
+        if (square.getAttribute('state') == '0') {
+            resVec.push(square)
+            square.classList.add('squareOpened')
+            square.classList.remove('squareDefault')
+            console.log(square)
+        }
+    })
+
+    // console.log(resVec)
+
+    return resVec
 }
 
 function findNeighbours(a, b, matr = squaresDigit) {
@@ -225,6 +239,7 @@ function findNeighbours(a, b, matr = squaresDigit) {
         if (a + i < 0 || a + i > fieldRows - 1) continue
         for (let k = -1; k <= 1; k++) {
             if (b + k < 0 || b + k > fieldCols - 1 || (i == 0 && k == 0)) continue
+            // console.log(`${a + i} ${b + k}`)
             resVector.push(matr[a + i][b + k])
         }
         
