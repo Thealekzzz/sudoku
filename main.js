@@ -1,5 +1,5 @@
 let grid = document.querySelectorAll('.grid')
-let generateButtons = document.querySelectorAll('button')
+let generateButtons = document.querySelectorAll('.sudokuButton')
 let countInfo = document.querySelector('.countInfo span')
 let levels = document.querySelectorAll('.level div')
 let digitsCountItems = document.querySelectorAll('.digitsCount')
@@ -53,7 +53,7 @@ firstN = [0, 3, 6, 27, 30, 33, 54, 57, 60]
 fff = [0, 1, 2, 9, 10, 11, 18, 19, 20]
 
 function fillMatr(fieldNumber, makeBlocked = true) {
-    console.log(makeBlocked);
+    // console.log(makeBlocked);
     let matrix = matrices[fieldNumber]
     for (let i = 0; i < 9; i++) {
         matrix.push([])
@@ -362,7 +362,7 @@ function upgradedMix(fieldNumber) {
 
 function upgradedFill(fieldNumber) {
     makeBasicGrid(fieldNumber)
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 35; i++) {
         upgradedMix(fieldNumber)
     }
 
@@ -374,6 +374,7 @@ function upgradedFill(fieldNumber) {
 }
 
 function deleteElements(fieldNumber) {
+    let temp = 0
     
     let closed = 0
     let target = 81 - level
@@ -382,11 +383,12 @@ function deleteElements(fieldNumber) {
         let elemRowIndex = randomN(8)
         let elemColIndex = randomN(8)
         let tempItem = matrices[fieldNumber][elemRowIndex][elemColIndex]
-
+        temp++
 
         // console.log('possibleN(tempItem, fieldNumber): ', possibleN(tempItem, fieldNumber));
 
         if (tempItem.getAttribute('opened') == 'true' && possibleN(tempItem, fieldNumber).length < 4) {
+            
             tempItem.setAttribute('opened', false)
             tempItem.removeAttribute('readonly')
 
@@ -394,9 +396,12 @@ function deleteElements(fieldNumber) {
 
             tempItem.value = ''
             closed++
+            temp--
         }
+
+        
     }
-    // console.log(closed);
+    console.log(temp);
 }
 
 function countOpened(fieldNumber) {
@@ -553,7 +558,10 @@ generateButtons.forEach((button, index) => {
                 fieldCreation(index)
                 matrices[index] = fillMatr(index, false)
                 addHighlights(index)
-                upgradedFill(index)
+                // upgradedFill(index)
+                // count = 0
+                // randomFill(index)
+                makeBasicGrid(index)
 
             })
         }
@@ -584,12 +592,12 @@ levels.forEach((item, index) => {
             }
 
             case 1: {
-                level = 35
+                level = 37
                 break
             }
 
             case 2: {
-                level = 28
+                level = 30
                 break
             }
         }
