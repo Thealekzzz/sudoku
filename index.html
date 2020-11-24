@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Судоку</title>
+    <title>Не только судоку</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500;700&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
     
             <div class="levelWrapper">
                 Сложность:
-                <div class="level">
+                <div class="level sudokuLevel">
                     <div class="levelEasy">Простая</div>
                     <div class="levelMiddle active">Средняя</div>
                     <div class="levelHard">Сложная</div>
@@ -172,14 +172,36 @@
         </div> -->
 
         <section class="minesweeper">
-            <h2 class="title">Сапёр</h2>
+
+            <div class="levelOuter">
+                <h2 class="title">Сапёр</h2>
+    
+                <div class="levelWrapper">
+                    Сложность:
+                    <div class="level minesweeperLevel">
+                        <div class="levelEasy">Простая</div>
+                        <div class="levelMiddle active">Средняя</div>
+                        <div class="levelHard">Сложная</div>
+                    </div>
+                </div>
+
+            </div>
+
             <p class="smallScreen">Я ещё не придумал как уместить эту игру на маленький экран :(</p>
 
+            <div class="navigation">
+                <div class="mineButton"></div>
+                <div class="restart disabled">
+                    <img src="assets/img/arrowWhite.png" alt="" srcset="">
+                    <span> рестарт </span>
+
+                </div>
+            </div>
             <div class="field">
-                <div class="gameover disabled">
+                <!-- <div class="gameover disabled">
                     <p>Упс.. Новость о вашей находке быстро разлетелась по всему городу</p> 
                     <button>Воскреснуть</button>
-                </div>
+                </div> -->
 
             </div>
 

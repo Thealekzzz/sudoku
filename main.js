@@ -1,7 +1,7 @@
 let grid = document.querySelectorAll('.grid')
 let generateButtons = document.querySelectorAll('.sudokuButton')
 let countInfo = document.querySelector('.countInfo span')
-let levels = document.querySelectorAll('.level div')
+let levels = document.querySelectorAll('.sudokuLevel div')
 let digitsCountItems = document.querySelectorAll('.digitsCount')
 
 
