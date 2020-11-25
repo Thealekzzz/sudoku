@@ -382,7 +382,9 @@ p:nth-of-type(2) {
 }
 
 .bomb {
-    background-color: #222288;
+    /* background-color: #222288; */
+    background: url('assets/img/Bomb.svg') no-repeat center center;
+    /* background-size: contain; */
 }
 
 .flagged {

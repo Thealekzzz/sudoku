@@ -270,7 +270,7 @@ function actionsOnClick(event) {
     }
 
     if (event.target.getAttribute('state') == 'B') {
-        event.target.style.
+        event.target.classList.add('bomb')
         // console.log('Енто элемент с нулём бомб вокруг');
     }
     // event.target.setAttribute('state', 'Opened')
