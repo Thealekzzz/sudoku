@@ -3,18 +3,19 @@ function $(str) {
 }
 
 let field = $('.field')
-// let gameOver = $('.gameover')
 let gameOverButton = $('.mineButton')
-// console.log(field);
 let restart = $('.restart')
 let difficults = document.querySelectorAll('.minesweeperLevel div')
+let currentNumberOfBombsSpan = $('.navigationRight span')
 
 let fieldRows = 15
 let fieldCols = 30
 let numberOfBombs = 90
+let currentNumberOfBombs
 let firstClick = true
 let firstClickCoord = []
 let inGame = true
+let openedSquares = 0
 
 let difficult = [60, 90, 100]
 
@@ -42,8 +43,17 @@ difficults.forEach((item, index) => {
         })
         item.style.backgroundColor = 'orangered'
         item.style.color = 'white'
+
+        if (firstClick) {
+            currentNumberOfBombs = numberOfBombs
+            updateNumberOfBombsSpan()
+        }
+        
     })
 })
+
+
+currentNumberOfBombs = numberOfBombs
 
 for (let i = 0; i < fieldRows; i++) {
     squares.push([])
@@ -73,9 +83,12 @@ function resetField() {
     inGame = true
     squaresDigit = []
     firstClick = true
+    currentNumberOfBombs = numberOfBombs
+    openedSquares = 0
 
     gameOverButton.style.backgroundColor = 'chartreuse'
     restart.classList.add('disabled')
+    // restart.classList.add('animation')
 
     // console.log(squares);
     // console.log(squaresDigit);
@@ -98,6 +111,8 @@ function resetField() {
         }
     }
     // console.log(squaresDigit);
+
+    updateNumberOfBombsSpan()
 }
 
 function generateBombsAndDigits() {
@@ -192,8 +207,6 @@ function createField() {
             // Слушатель на нажатия
     
             tempSquare.addEventListener('click', actionsOnClick)
-    
-            tempSquare.addEventListener('contextmenu', actionsOnRightClick)
 
             // if (squaresDigit[i][j] == 'B') console.log('kjgl');
             
@@ -221,6 +234,14 @@ function actionsOnClick(event) {
         firstClick = false
         firstClickCoord = [event.target.getAttribute('row'), event.target.getAttribute('col')]
         generateBombsAndDigits()
+        for (let i = 0; i < fieldRows; i++) {
+            for (let j = 0; j < fieldCols; j++) {
+                let tempSquare = squares[i][j]
+                tempSquare.addEventListener('contextmenu', actionsOnRightClick)
+                
+            }
+            
+        }
     }
 
     if (event.target.getAttribute('state') == 'B') {
@@ -235,7 +256,7 @@ function actionsOnClick(event) {
     event.target.classList.remove('squareDefault')
     event.target.classList.add('squareOpened')
 
-    if (event.target.getAttribute('state') != 0) {
+    if (event.target.getAttribute('state') != 0 && event.target.getAttribute('state') != 'B') {
         event.target.textContent = event.target.getAttribute('state')
 
     }
@@ -245,6 +266,11 @@ function actionsOnClick(event) {
 
     if (event.target.getAttribute('state') == 0) {
         findAllZeroSquaresAndNeighbours(event.target)
+        // console.log('Енто элемент с нулём бомб вокруг');
+    }
+
+    if (event.target.getAttribute('state') == 'B') {
+        event.target.style.
         // console.log('Енто элемент с нулём бомб вокруг');
     }
     // event.target.setAttribute('state', 'Opened')
@@ -259,6 +285,10 @@ function actionsOnRightClick(event) {
     event.target.removeEventListener('contextmenu', actionsOnRightClick)
     event.target.removeEventListener('click', actionsOnClick)
     event.target.addEventListener('contextmenu', actionsOnEnotherRightClick)
+
+    currentNumberOfBombs--
+
+    updateNumberOfBombsSpan()
 }
 
 function actionsOnEnotherRightClick(event) {
@@ -269,8 +299,9 @@ function actionsOnEnotherRightClick(event) {
     event.target.addEventListener('contextmenu', actionsOnRightClick)
     event.target.removeEventListener('contextmenu', actionsOnEnotherRightClick)
     
-
+    currentNumberOfBombs++
     
+    updateNumberOfBombsSpan()
 }
 
 
@@ -377,6 +408,10 @@ function countSymbol(vector, symbol) {
         if (element == symbol) resNumber++
     });
     return resNumber
+}
+
+function updateNumberOfBombsSpan() {
+    currentNumberOfBombsSpan.textContent = currentNumberOfBombs
 }
 
 gameOverButton.addEventListener('click', () => {

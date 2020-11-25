@@ -244,13 +244,37 @@ p:nth-of-type(2) {
     background-color: #222;
     display: flex;
     align-items: center;
-    /* justify-content: center; */
+    justify-content: space-between;
     color: white;
 
 }
 
+.navigationLeft {
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+}
+
+.navigationRight {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navigationRight span {
+    margin-right: 20px;
+}
+
 .navigation img {
     margin: 0 10px;
+}
+
+.restart {
+    transition: all 0.3s;
+}
+
+.navigationLeft .animation {
+    transform: translateX(100px);
 }
 
 .mineButton {
