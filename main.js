@@ -520,16 +520,15 @@ generateButtons.forEach((button, index) => {
     fieldCreation(index)
 
     addEventL(button, () => {
-        
+        fieldCreation(index)
+        matrices[index] = fillMatr(index)
+        addHighlights(index)
     })
     
     
     switch (index) {
         case 0: {
             addEventL(button, () => {
-                fieldCreation(index)
-                matrices[index] = fillMatr(index)
-                addHighlights(index)
                 upgradedFill(index)
                 deleteElements(index)
                 updateDigitsCount(index)
@@ -541,9 +540,6 @@ generateButtons.forEach((button, index) => {
 
         case 1: {
             addEventL(button, () => {
-                fieldCreation(index)
-                matrices[index] = fillMatr(index)
-                addHighlights(index)
                 logicalFill(index)
                 deleteElements(index)
                 updateDigitsCount(index)

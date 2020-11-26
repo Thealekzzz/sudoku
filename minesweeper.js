@@ -7,19 +7,21 @@ let gameOverButton = $('.mineButton')
 let restart = $('.restart')
 let difficults = document.querySelectorAll('.minesweeperLevel div')
 let currentNumberOfBombsSpan = $('.navigationRight span')
+let timeClock = $('.time')
 
 let fieldRows = 15
 let fieldCols = 30
 let numberOfBombs = 90
 let currentNumberOfBombs
 let firstClick = true
-let firstClickCoord = []
 let inGame = true
 let openedSquares = 0
-
 let difficult = [60, 90, 100]
 
-let colors = ['flagged', 'bomb', 'blue', 'green', 'red', 'darkBlue', 'purple', 'cyan', 'darkRed', 'black']   
+let timeInt
+let time = [[0], [0]]
+let firstClickCoord = []
+let colors = ['fakeFlagged', 'trueFlagged', 'flagged', 'bomb', 'blue', 'green', 'red', 'darkBlue', 'purple', 'cyan', 'darkRed', 'black']   
 let squares = []
 let squaresDigit = []
 
@@ -85,6 +87,10 @@ function resetField() {
     firstClick = true
     currentNumberOfBombs = numberOfBombs
     openedSquares = 0
+
+    time = [[0], [0]]
+    clearInterval(timeInt)
+    timeClock.textContent = '00:00'
 
     gameOverButton.style.backgroundColor = 'chartreuse'
     restart.classList.add('disabled')
@@ -229,6 +235,11 @@ function deleteListeners() {
     }
 }
 
+function makeDouble(int) {
+    if (int < 10) return ('0' + int)
+    return int
+}
+
 function actionsOnClick(event) {
     if (firstClick) { // Проверка, первый ли это кдик по полю
         firstClick = false
@@ -242,6 +253,14 @@ function actionsOnClick(event) {
             }
             
         }
+        timeInt = setInterval(() => {
+            time[1]++
+            if (time[1] == 60) {
+                time[0]++
+                time[1] = 0
+            }
+            timeClock.textContent = `${makeDouble(time[0])}:${makeDouble(time[1])}`
+        }, 1000)
     }
 
     if (event.target.getAttribute('state') == 'B') {
@@ -250,6 +269,8 @@ function actionsOnClick(event) {
         inGame = false
         restart.classList.remove('disabled')
         deleteListeners()
+        showAllBombs()
+        clearInterval(timeInt)
         
     }
 
@@ -269,10 +290,10 @@ function actionsOnClick(event) {
         // console.log('Енто элемент с нулём бомб вокруг');
     }
 
-    if (event.target.getAttribute('state') == 'B') {
-        event.target.classList.add('bomb')
-        // console.log('Енто элемент с нулём бомб вокруг');
-    }
+    // if (event.target.getAttribute('state') == 'B') {
+    //     event.target.classList.add('bomb')
+    //     // console.log('Енто элемент с нулём бомб вокруг');
+    // }
     // event.target.setAttribute('state', 'Opened')
 
 
@@ -412,6 +433,31 @@ function countSymbol(vector, symbol) {
 
 function updateNumberOfBombsSpan() {
     currentNumberOfBombsSpan.textContent = currentNumberOfBombs
+}
+
+function showAllBombs(func) {
+    for (let i = 0; i < fieldRows; i++) {
+        for (let j = 0; j < fieldCols; j++) {
+            if (squaresDigit[i][j] == 'B') {
+                if (squares[i][j].classList.contains('flagged')) {
+                    squares[i][j].classList.remove('flagged')
+                    squares[i][j].classList.add('trueFlagged')
+
+                } else {
+                    squares[i][j].classList.add('bomb')
+                    
+                }
+            } else {
+                if (squares[i][j].classList.contains('flagged')) {
+                    squares[i][j].classList.remove('flagged')
+                    squares[i][j].classList.add('fakeFlagged')
+
+                }
+            }
+            
+        }
+        
+    }
 }
 
 gameOverButton.addEventListener('click', () => {
