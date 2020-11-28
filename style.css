@@ -303,6 +303,8 @@ p:nth-of-type(2) {
 }
 
 .field {
+    user-select: none;
+
     height: 450px;
     width: 900px;
     display: grid;
