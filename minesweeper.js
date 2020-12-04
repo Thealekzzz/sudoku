@@ -8,6 +8,8 @@ let restart = $('.restart')
 let difficults = document.querySelectorAll('.minesweeperLevel div')
 let currentNumberOfBombsSpan = $('.navigationRight span')
 let timeClock = $('.time')
+let gameWinnedWindow = $('.gameWinned')
+let gameWinnedButton = $('.gameWinned button')
 
 let fieldRows = 15
 let fieldCols = 30
@@ -32,6 +34,10 @@ field.addEventListener('mousedown', () => {
 
 field.addEventListener('mouseup', () => {
     if (inGame) gameOverButton.style.backgroundColor = 'chartreuse'
+})
+
+gameWinnedButton.addEventListener('click', () => {
+    gameWinnedWindow.classList.add('disabled')
 })
 
 difficults[1].style.backgroundColor = 'orangered'
@@ -241,7 +247,7 @@ function makeDouble(int) {
 }
 
 function actionsOnClick(event) {
-    if (firstClick) { // Проверка, первый ли это кдик по полю
+    if (firstClick) { // Проверка, первый ли это клик по полю
         firstClick = false
         firstClickCoord = [event.target.getAttribute('row'), event.target.getAttribute('col')]
         generateBombsAndDigits()
@@ -297,6 +303,12 @@ function actionsOnClick(event) {
     // event.target.setAttribute('state', 'Opened')
 
 
+
+    if (isEverythingRight()) { // Значит игра выиграна
+        gameWinnedWindow.classList.remove('disabled')
+    }
+
+
 }
 
 function actionsOnRightClick(event) {
@@ -310,6 +322,10 @@ function actionsOnRightClick(event) {
     currentNumberOfBombs--
 
     updateNumberOfBombsSpan()
+
+    if (isEverythingRight()) { // Значит игра выиграна
+        gameWinnedWindow.classList.remove('disabled')
+    }
 }
 
 function actionsOnEnotherRightClick(event) {
@@ -323,6 +339,24 @@ function actionsOnEnotherRightClick(event) {
     currentNumberOfBombs++
     
     updateNumberOfBombsSpan()
+}
+
+function isEverythingRight() {
+    if (currentNumberOfBombs == 0) {
+        let itsOkay = true
+        squaresDigit.forEach((item, index) => {
+            item.forEach((element, jndex) => {
+                if (element == 'B') {
+                    if (!squares[index][jndex].classList.contains('flagged')) {
+                        itsOkay = false
+                    }
+                } else if (!squares[index][jndex].classList.contains('squareOpened')) {
+                    itsOkay = false
+                }
+            })
+        })
+        return itsOkay
+    }
 }
 
 

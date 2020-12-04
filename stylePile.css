@@ -1,0 +1,57 @@
+.piles {
+    margin-bottom: 100px;
+}
+
+.pilesCard {
+    height: 120px;
+    width: 80px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 5px;
+}
+
+.mainCard {
+    background-color: tomato; 
+    box-shadow: 0 0 40px rgba(255, 99, 71, .3);
+
+}
+
+.cardFree {
+    background-color: #eee;
+    border: 3px solid #666;
+}
+
+.cardTo {
+    background-color: #ffff55;
+    box-shadow: 0 0 30px rgba(238, 238, 85, .4);
+}
+
+.mainPile {
+    display: flex;
+    justify-content: center;
+}
+
+.pilesContent {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 350px 300px;
+    justify-content: center;
+}
+
+.pilesTo {
+    display: grid;
+    /* margin-right: 100px; */
+    grid-template-columns: repeat(2, 80px);
+    justify-items: center;
+    /* justify-self: right; */
+    grid-row-gap: 20px;
+    grid-column-gap: 50px;
+}
+
+.pilesFree {
+    display: flex;
+    gap: 20px;
+    align-self: center;
+}

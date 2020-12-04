@@ -305,11 +305,11 @@ p:nth-of-type(2) {
 .field {
     user-select: none;
 
-    height: 450px;
-    width: 900px;
+    /* height: 450px; */
+    /* width: 900px; */
     display: grid;
-    grid-template-columns: repeat(30, 1fr);
-    grid-template-rows: repeat(15, 1fr);
+    grid-template-columns: repeat(30, 30px);
+    grid-template-rows: repeat(15, 30px);
     gap: 1px;
     margin: 0 auto;
     border: 2px solid #222;
@@ -320,7 +320,7 @@ p:nth-of-type(2) {
 
 }
 
-.gameover {
+.gameWinned {
     position: absolute;
     top: 10%;
     left: 50%;
@@ -330,6 +330,18 @@ p:nth-of-type(2) {
     border-radius: 20px;
     box-shadow: 0 0 80px rgba(0, 0, 0, 0.2);
 
+}
+
+.gameWinned button {
+    background-color: seagreen;
+    padding: 10px 20px;
+    margin-bottom: 5px;
+    border: none;
+    color: white;
+    font-family: Raleway;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
 }
 
 .disabled {
@@ -422,6 +434,62 @@ p:nth-of-type(2) {
     background-size: 20px;
     
 }
+
+
+
+
+/* 21 - 0 */
+
+.twentyOne .content {
+    display: grid;
+    justify-content: center;
+    margin-top: 100px;
+    margin-bottom: 200px;
+    grid-template-columns: repeat(1fr);
+    /* flex-direction: column; */
+}
+
+.twoCards {
+    display: grid;
+    grid-template-columns: repeat(2, 300px);
+    justify-items: center;
+    /* width: 100vw; */
+    
+}
+
+.twoCards .card {
+    height: 300px;
+    width: 200px;
+    background-color: #ddd;
+    cursor: pointer;
+    box-shadow: 0 0 30px #eee;
+}
+
+.oneCard {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.oneCard .card{
+    height: 300px;
+    width: 200px;
+    background-color: seagreen;
+    color: seashell;
+    box-shadow: 0 0 60px rgba(46, 139, 87, .3);
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: poppins;
+    font-size: 30px;
+    border-radius: 10px;
+}
+
+
+
 
 @media (max-width: 940px) {
     /* .smallScreen {
