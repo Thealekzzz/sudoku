@@ -121,6 +121,19 @@ p:nth-of-type(2) {
     padding: 20px;
 }
 
+.explanation > .gen {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.explanation > .gen > .stressOption {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+}
+
 .digitsCount {
     display: flex;
     flex-wrap: wrap;
@@ -413,24 +426,24 @@ p:nth-of-type(2) {
 
 .bomb {
     /* background-color: #222288; */
-    background: #fff url('assets/img/bomb1.png') no-repeat center center;
+    background: #fff url('../assets/img/bomb1.png') no-repeat center center;
     background-size: 20px;
 }
 
 .flagged {
     /* background-color: #228888; */
-    background: #fff url('assets/img/flag.png') no-repeat center center;
+    background: #fff url('../assets/img/flag.png') no-repeat center center;
     background-size: 20px;
 
 }
 
 .fakeFlagged {
-    background: #ffaaaa url('assets/img/flag.png') no-repeat center center;
+    background: #ffaaaa url('../assets/img/flag.png') no-repeat center center;
     background-size: 20px;
 }
 
 .trueFlagged {
-    background: #aaffaa url('assets/img/flag.png') no-repeat center center;
+    background: #aaffaa url('../assets/img/flag.png') no-repeat center center;
     background-size: 20px;
     
 }

@@ -1,0 +1,115 @@
+.shulte {
+    margin-bottom: 100px;
+}
+
+.shulte .rowsNumber {
+    margin-left: 30px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.rowsNumber > .top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.rowsNumber > .top > button {
+    width: 30px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rowsNumber > .top > .num {
+    font-size: 18px;
+    font-weight: bold;
+    width: 25px;
+    text-align: center;
+}
+
+.rowsNumber > .bottom > button {
+    border: none;
+    background-color: orangered;
+    color: white;
+    font-weight: bold;
+
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.shulteField {
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    gap: 0.3%;
+}
+
+.shulteField > .point {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all .1s;
+
+    font-family: serif;
+    font-weight: bold;
+    /* background-color: #333;
+    color: white; */
+
+    background-color: #eee;
+    color: black;
+
+}
+
+.shulteField > .point:hover {
+    background-color: #ddd;
+}
+
+.shulteExplanation {
+    max-width: 70%;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 40px;
+    line-height: 24px;
+}
+
+.shulteFieldWrapper {
+    display: flex;
+    gap: 40px;
+
+    margin-left: calc(50vw - 250px);
+    flex-direction: column;
+    /* justify-content: center; */
+}
+
+.shulteFieldWrapper > .timer {
+    background-color: seagreen;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 160px;
+
+    transition: background .3s;
+    cursor: pointer;
+
+    width: 180px;
+    height: 40px;
+    /* border-radius: 5px; */
+
+    font-size: 12px;
+}

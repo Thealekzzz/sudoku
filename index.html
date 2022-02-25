@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Игрули</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="stylePile.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/stylePile.css">
+    <link rel="stylesheet" href="css/shulte.css">
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500;700&display=swap" rel="stylesheet">
-    <script src="main.js" defer></script>
-    <script src="minesweeper.js" defer></script>
-    <!-- <script src="21-0.js" defer></script> -->
+    
+    <script src="js/main.js" defer></script>
+    <script src="js/minesweeper.js" defer></script>
+    <script src="js/shulte.js" defer></script>
 </head>
 <body>
     <main>
@@ -34,16 +38,23 @@
                 
             </div>
             <div class="explanation">
-                <h2>Mix генератор</h2>
+                <h2>Судоку</h2>
                 <p>
-                    Попарно меняет местами цифры на поле. 
+                    Каждое число должно присутствовать в столбце, ряду и своем блоке только один раз. 
                 </p>
                 <!-- <p class="forPhones">
                     Рекомендую для всего
                 </p> -->
+                <div class="gen">
+                    <button class="sudokuButton">Сгенерировать</button>
 
-                <button class="sudokuButton">Сгенерировать</button>
+                    <div class="stressOption">
+                        <input type="checkbox" class="highlightDigits">
+                        <div class="">Выделять одинаковые цифры</div>
+                    </div>
 
+                </div>
+                
                 <div class="digitsCount">
                     <div class="digitWrapper">
                         <div class="digit">1</div>
@@ -94,7 +105,7 @@
             </div>
         </div>
 
-        <div class="sudoku">
+        <!-- <div class="sudoku">
             <div class="grid">
                 
             </div>
@@ -155,7 +166,7 @@
                 </div>
 
             </div>
-        </div>
+        </div> -->
 
         <!-- <div class="sudoku"    >
             <div class="grid">
@@ -237,62 +248,56 @@
 
         </section>
 
-        <!-- <section class="twentyOne">
-
+        <section class="shulte">
             <div class="levelOuter">
-                <h2 class="title">21 - 0</h2>
+                <h2 class="title">Таблица Шульте</h2>
     
-                
+                <div class="levelWrapper">
+                    Размер:
+                    <div class="settings">
+                        <div class="rowsNumber">
+                            <div class="top">
+                                <button class="numDown">
+                                    <svg width="18" height="10" viewBox="0 0 46 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M20.8787 25.1213C22.0503 26.2929 23.9497 26.2929 25.1213 25.1213L44.2132 6.02944C45.3848 4.85786 45.3848 2.95837 44.2132 1.7868C43.0416 0.615224 41.1421 0.615224 39.9706 1.7868L23 18.7574L6.02944 1.7868C4.85786 0.615224 2.95837 0.615224 1.7868 1.7868C0.615224 2.95837 0.615224 4.85786 1.7868 6.02944L20.8787 25.1213ZM20 22V23H26V22H20Z" fill="white"/>
+                                    </svg>
+                                    
+                                    
+                                </button>
+                                
+                                <div class="num">10</div>
+                                
+                                <button class="numUp">
+                                    <svg width="18" height="10" viewBox="0 0 46 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M25.1213 0.87868C23.9497 -0.292893 22.0503 -0.292893 20.8787 0.87868L1.7868 19.9706C0.615224 21.1421 0.615224 23.0416 1.7868 24.2132C2.95837 25.3848 4.85786 25.3848 6.02944 24.2132L23 7.24264L39.9706 24.2132C41.1421 25.3848 43.0416 25.3848 44.2132 24.2132C45.3848 23.0416 45.3848 21.1421 44.2132 19.9706L25.1213 0.87868ZM26 4V3L20 3V4L26 4Z" fill="white"/>
+                                    </svg>
+                                    
+                                </button>
+                            </div>
+        
+                            <div class="bottom">
+                                <button class="generate">Обновить</button>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p class="shulteExplanation">
+                Таблица для развития памяти, внимания и&nbsp;Необходимо найти все цифры от&nbsp;1&nbsp;до&nbsp;100, в&nbsp;идеале не&nbsp;водя мышкой или пальцем по&nbsp;экрану и&nbsp;не&nbsp;проговаривая найденные цифры вслух. Также можно выполнять эту задачу в&nbsp;обратном направлении, или пропуская каждую вторую цифру.
+            </p>
+
+            <div class="shulteFieldWrapper">
+                <div class="timer">Запустить секундомер</div>
+
+                <div class="shulteField"></div>
 
             </div>
 
-            <div class="content">
 
-                <div class="twoCards">
 
-                    <div class="card">5</div>
-                    <div class="card">6</div>
-
-                </div>
-
-                <div class="oneCard">
-
-                    <div class="card">10</div>
-
-                </div>
-
-            </div>
-
-        </section> -->
-
-        <!-- <section class="piles">
-
-            <div class="mainPile">
-                <div class="pilesCard mainCard">10</div>
-            </div>
-
-            <div class="pilesContent">
-
-                <div class="pilesTo">
-
-                    <div class="pilesCard cardTo"></div>
-                    <div class="pilesCard cardTo"></div>
-                    <div class="pilesCard cardTo"></div>
-                    <div class="pilesCard cardTo"></div>
-
-                </div>
-
-                <div class="pilesFree">
-
-                    <div class="pilesCard cardFree"></div>
-                    <div class="pilesCard cardFree"></div>
-                    <div class="pilesCard cardFree"></div>
-                    
-                </div>
-
-            </div>
-
-        </section> -->
+        </section>
 
 
     </main>

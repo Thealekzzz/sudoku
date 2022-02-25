@@ -3,6 +3,7 @@ let generateButtons = document.querySelectorAll('.sudokuButton')
 let countInfo = document.querySelector('.countInfo span')
 let levels = document.querySelectorAll('.sudokuLevel div')
 let digitsCountItems = document.querySelectorAll('.digitsCount')
+let highlightDigitsCheckbox = document.querySelector('.highlightDigits')
 
 
 let bigSquare
@@ -13,6 +14,7 @@ let count
 let digitsCount = []
 let digitsBG = []
 let digits = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+let highlightDigitsFlag = false
 
 let smalls = [[], []]
 
@@ -440,37 +442,41 @@ function findSameDigitByItem(fieldNumber, item) {
 }
 
 function addHighlights(fieldNumber) {
-    smalls[fieldNumber].forEach(item => {
-        item.addEventListener('click', () => {
-            if (sameDigits != undefined && sameDigits != []) {
-                sameDigits.forEach(item => {
-                    if (item.classList.contains('blocked')) item.style.backgroundColor = '#f2f2f2'
-                    else item.style.backgroundColor = 'white'
-                })
-            }
-            sameDigits = findSameDigitByItem(fieldNumber, item)
-            sameDigits.forEach(item => item.style.backgroundColor = '#EE9999')
-        })
-
+    if (highlightDigitsFlag) {
         
-
-        item.addEventListener('input', () => {
-            let tempValue = item.value
-            if ((tempValue > 9 || tempValue < 1) && tempValue != '') {
-                item.value = tempValue[tempValue.length - 1]
-            }
-
-            if (sameDigits != undefined && sameDigits != []) {
-                sameDigits.forEach(item => {
-                    if (item.classList.contains('blocked')) item.style.backgroundColor = '#f2f2f2'
-                    else item.style.backgroundColor = 'white'
-                })
-            }
-            sameDigits = findSameDigitByItem(fieldNumber, item)
-            sameDigits.forEach(item => item.style.backgroundColor = '#EE9999')
-            updateDigitsCount(fieldNumber)
+        smalls[fieldNumber].forEach(item => {
+            item.addEventListener('click', () => {
+                if (sameDigits != undefined && sameDigits != []) {
+                    sameDigits.forEach(item => {
+                        if (item.classList.contains('blocked')) item.style.backgroundColor = '#f2f2f2'
+                        else item.style.backgroundColor = 'white'
+                    })
+                }
+                sameDigits = findSameDigitByItem(fieldNumber, item)
+                sameDigits.forEach(item => item.style.backgroundColor = '#EE9999')
+            })
+    
+            
+    
+            item.addEventListener('input', () => {
+                let tempValue = item.value
+                if ((tempValue > 9 || tempValue < 1) && tempValue != '') {
+                    item.value = tempValue[tempValue.length - 1]
+                }
+    
+                if (sameDigits != undefined && sameDigits != []) {
+                    sameDigits.forEach(item => {
+                        if (item.classList.contains('blocked')) item.style.backgroundColor = '#f2f2f2'
+                        else item.style.backgroundColor = 'white'
+                    })
+                }
+                sameDigits = findSameDigitByItem(fieldNumber, item)
+                sameDigits.forEach(item => item.style.backgroundColor = '#EE9999')
+                updateDigitsCount(fieldNumber)
+            })
         })
-    })
+
+    }
 }
 
 function updateDigitsCount(fieldNumber) {
@@ -514,6 +520,12 @@ function addEventL(button, func) {
     })
 }
 
+
+highlightDigitsCheckbox.addEventListener("click", () => {
+    highlightDigitsFlag = !highlightDigitsFlag
+
+
+})
 
 
 generateButtons.forEach((button, index) => {
